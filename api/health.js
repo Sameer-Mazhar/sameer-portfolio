@@ -1,0 +1,1 @@
+module.exports=function(req,res){res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');res.statusCode=200;res.end(JSON.stringify({ok:true,contactMode:process.env.RESEND_API_KEY&&process.env.CONTACT_FROM_EMAIL?'server':'email'}));};

@@ -20,7 +20,7 @@ HTML ko double-click ya Live Server se na kholein: JSX/Tailwind build aur Node c
 - Footer(): footer component.
 - IndexPage(): Navbar, Hero, Marquee, About, Skills, Projects, Experience, Contact aur Footer call karta hai.
 - build.cjs: React JSX aur Tailwind compile karke dist/index.html mein CSS/JS inline karta hai.
-- server.cjs: Node backend, static page, fonts, resume aur contact API. Backend browser HTML mein execute nahi ho sakta, is liye separate server file zaroori hai.
+- dev-server.cjs: Node backend, static page, fonts, resume aur contact API. Backend browser HTML mein execute nahi ho sakta, is liye separate server file zaroori hai.
 - public/resume.pdf: downloadable CV.
 - data/messages.jsonl: submitted messages, har line aik JSON record. Public URL se accessible nahi.
 - package.json: dependencies aur commands.
@@ -56,3 +56,14 @@ Mobile menu, project filters, details, CV download aur form submission check kar
 
 ## Browser verification
 Server chal raha ho to `node verify.cjs` run karein. Microsoft Edge installed hona chahiye. Form rate limit ki wajah se repeat test se pehle 60 seconds wait karein ya server restart karein. Preview screenshots artifacts/desktop.png aur artifacts/mobile.png mein hain.
+
+## Vercel deployment (500 error fix)
+Vercel ab compiled dist folder se website serve karta hai. Build request time par execute nahi hoti. dev-server.cjs sirf local preview hai; api/health.js aur api/contact.js Vercel serverless functions hain. Build resume aur fonts dist mein copy karta hai.
+
+GitHub push ke baad Vercel linked project automatic deploy karega. Agar existing dashboard overrides hon: Framework Preset = Other, Build Command = npm run build, Output Directory = dist, Install Command = npm ci, Root Directory = repository root. Phir Deployments se latest commit Redeploy karein.
+
+Vercel par local data/messages.jsonl permanent storage nahi. Email configuration ke baghair contact button email draft kholta hai; visitor apni email app se send karega. Local preview message saving pehle jaisi hai.
+
+Optional direct email delivery: Vercel Settings > Environment Variables mein RESEND_API_KEY aur CONTACT_FROM_EMAIL add karein. CONTACT_FROM_EMAIL Resend ke verified sender/domain ka address ho. Credentials GitHub mein commit na karein. Variables add karne ke baad redeploy karein. Production API rate limits ke liye Vercel Firewall/provider limits configure kar sakte hain.
+
+References: https://vercel.com/docs/functions/runtimes/node-js and https://vercel.com/docs/project-configuration/vercel-json

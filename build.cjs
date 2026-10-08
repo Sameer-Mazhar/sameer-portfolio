@@ -9,6 +9,7 @@ const icons=(await fs.readFile(path.join(__dirname,'node_modules/@fortawesome/fo
 html=html.replace(/<style id="styles">[\s\S]*?<\/style>/,()=>'<style>'+icons+'\n'+compiled.css+'</style>').replace(/<script type="text\/jsx">[\s\S]*?<\/script>/,()=>'<script>'+js.outputFiles[0].text.replaceAll('</script','<\\/script')+'</script>');
 await fs.mkdir(path.join(__dirname,'dist'),{recursive:true});await fs.writeFile(path.join(__dirname,'dist/index.html'),html);
 await fs.cp(path.join(__dirname,'node_modules/@fortawesome/fontawesome-free/webfonts'),path.join(__dirname,'dist/webfonts'),{recursive:true});
+await fs.cp(path.join(__dirname,'public'),path.join(__dirname,'dist'),{recursive:true});
 console.log('Built dist/index.html — frontend CSS and JS inline.');
 }
 module.exports=build;if(require.main===module)build().catch(e=>{console.error(e);process.exitCode=1;});
