@@ -1,0 +1,22 @@
+{
+  "name": "sameer-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node server.cjs",
+    "start": "node server.cjs",
+    "build": "node build.cjs"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "esbuild": "^0.25.0",
+    "playwright-core": "^1.64.0",
+    "postcss": "^8.5.0",
+    "tailwindcss": "^4.0.0"
+  }
+}
